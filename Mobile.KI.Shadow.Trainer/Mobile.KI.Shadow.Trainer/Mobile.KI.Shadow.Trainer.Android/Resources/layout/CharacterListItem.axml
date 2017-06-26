@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageView
+        android:src="@drawable/icon"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/GridImage"
+        android:layout_marginRight="0.0dp"
+        android:padding="15dp" />
+    <TextView
+        android:text="Name"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="wrap_content"
+        android:layout_height="100.0dp"
+        android:padding="15dp"
+        android:id="@+id/GridText"
+        android:layout_toRightOf="@+id/GridImage"
+        android:layout_alignParentRight="true"
+        android:gravity="center_vertical|left"
+        android:textSize="30dp" />
+</RelativeLayout>

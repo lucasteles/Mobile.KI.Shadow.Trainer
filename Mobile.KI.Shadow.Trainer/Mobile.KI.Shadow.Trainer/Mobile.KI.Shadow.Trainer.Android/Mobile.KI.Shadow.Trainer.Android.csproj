@@ -1,0 +1,180 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <ProjectGuid>{26A2DCA9-BF29-4786-81AC-5BC2649CF383}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Mobile.KI.Shadow.Trainer.Droid</RootNamespace>
+    <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
+    <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
+    <AndroidResgenClass>Resource</AndroidResgenClass>
+    <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
+    <AndroidApplication>True</AndroidApplication>
+    <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
+    <TargetFrameworkVersion>v7.1</TargetFrameworkVersion>
+    <AssemblyName>Mobile.KI.Shadow.Trainer.Android</AssemblyName>
+    <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AndroidLinkMode>None</AndroidLinkMode>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="Mono.Android" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Mobile.KI.Shadow.Trainer\Mobile.KI.Shadow.Trainer.csproj">
+      <Name>Mobile.KI.Shadow.Trainer</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Adapters\ImageTextAdapter.cs" />
+    <Compile Include="MainActivity.cs" />
+    <Compile Include="MovesActivity.cs" />
+    <Compile Include="Resources\Resource.designer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TrainerActivity.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AboutResources.txt" />
+    <None Include="Properties\AndroidManifest.xml" />
+    <None Include="Assets\AboutAssets.txt" />
+    <AndroidAsset Include="Assets\data.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidResource Include="Resources\layout\CharacterListItem.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\ImageBorder.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\Moves.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\TextViewItem.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\Trainer.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\raw\bladedash.webm" />
+    <AndroidResource Include="Resources\raw\aironryozan.webm" />
+    <AndroidResource Include="Resources\raw\ankleslicer.webm" />
+    <AndroidResource Include="Resources\raw\batteringram.webm" />
+    <AndroidResource Include="Resources\raw\bladedemon.webm" />
+    <AndroidResource Include="Resources\raw\boltstrike.webm" />
+    <AndroidResource Include="Resources\raw\boneshaker.webm" />
+    <AndroidResource Include="Resources\raw\coldshoulder.webm" />
+    <AndroidResource Include="Resources\raw\crushingboltstrike.webm" />
+    <AndroidResource Include="Resources\raw\crushingdestroyer.webm" />
+    <AndroidResource Include="Resources\raw\crushingshoulder.webm" />
+    <AndroidResource Include="Resources\raw\crushingstompstrike.webm" />
+    <AndroidResource Include="Resources\raw\darkdemise.webm" />
+    <AndroidResource Include="Resources\raw\darkdrift.webm" />
+    <AndroidResource Include="Resources\raw\decimation.webm" />
+    <AndroidResource Include="Resources\raw\demonslide.webm" />
+    <AndroidResource Include="Resources\raw\dragondance.webm" />
+    <AndroidResource Include="Resources\raw\explosivearc.webm" />
+    <AndroidResource Include="Resources\raw\eyelaser.webm" />
+    <AndroidResource Include="Resources\raw\firecat.webm" />
+    <AndroidResource Include="Resources\raw\firecracker.webm" />
+    <AndroidResource Include="Resources\raw\fission.webm" />
+    <AndroidResource Include="Resources\raw\flickflack.webm" />
+    <AndroidResource Include="Resources\raw\flyingknee.webm" />
+    <AndroidResource Include="Resources\raw\furiousflurry.webm" />
+    <AndroidResource Include="Resources\raw\hail.webm" />
+    <AndroidResource Include="Resources\raw\immortalspirit.webm" />
+    <AndroidResource Include="Resources\raw\inferno.webm" />
+    <AndroidResource Include="Resources\raw\jumpingslash.webm" />
+    <AndroidResource Include="Resources\raw\lasersword.webm" />
+    <AndroidResource Include="Resources\raw\leapkick.webm" />
+    <AndroidResource Include="Resources\raw\mercysdemise.webm" />
+    <AndroidResource Include="Resources\raw\naturaldisaster.webm" />
+    <AndroidResource Include="Resources\raw\oblivion.webm" />
+    <AndroidResource Include="Resources\raw\onryozan.webm" />
+    <AndroidResource Include="Resources\raw\plasmaport.webm" />
+    <AndroidResource Include="Resources\raw\powerline.webm" />
+    <AndroidResource Include="Resources\raw\pulverize.webm" />
+    <AndroidResource Include="Resources\raw\raggededge.webm" />
+    <AndroidResource Include="Resources\raw\reckoning.webm" />
+    <AndroidResource Include="Resources\raw\shotgunblitz.webm" />
+    <AndroidResource Include="Resources\raw\shouldercharge.webm" />
+    <AndroidResource Include="Resources\raw\skullsplitter.webm" />
+    <AndroidResource Include="Resources\raw\soulsword.webm" />
+    <AndroidResource Include="Resources\raw\stompstrike.webm" />
+    <AndroidResource Include="Resources\raw\swarm.webm" />
+    <AndroidResource Include="Resources\raw\tailflip.webm" />
+    <AndroidResource Include="Resources\raw\talonrake.webm" />
+    <AndroidResource Include="Resources\raw\trailblazer.webm" />
+    <AndroidResource Include="Resources\raw\tremor.webm" />
+    <AndroidResource Include="Resources\raw\trephine.webm" />
+    <AndroidResource Include="Resources\raw\triplax.webm" />
+    <AndroidResource Include="Resources\raw\truthseeker.webm" />
+    <AndroidResource Include="Resources\raw\tumblekick.webm" />
+    <AndroidResource Include="Resources\raw\whirl.webm" />
+    <AndroidResource Include="Resources\raw\widowsbite.webm" />
+    <AndroidResource Include="Resources\raw\windkick.webm" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\Main.axml" />
+    <AndroidResource Include="Resources\raw\Strings.xml" />
+    <AndroidResource Include="Resources\drawable-hdpi\Icon.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\Icon.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\Icon.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\Icon.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\Icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\aganos.png" />
+    <AndroidResource Include="Resources\drawable\arbiter.png" />
+    <AndroidResource Include="Resources\drawable\aria.png" />
+    <AndroidResource Include="Resources\drawable\cinder.png" />
+    <AndroidResource Include="Resources\drawable\eyedol.png" />
+    <AndroidResource Include="Resources\drawable\fulgore.png" />
+    <AndroidResource Include="Resources\drawable\gargos.png" />
+    <AndroidResource Include="Resources\drawable\glacius.png" />
+    <AndroidResource Include="Resources\drawable\hisako.png" />
+    <AndroidResource Include="Resources\drawable\jago.png" />
+    <AndroidResource Include="Resources\drawable\kanra.png" />
+    <AndroidResource Include="Resources\drawable\kimwu.png" />
+    <AndroidResource Include="Resources\drawable\maya.png" />
+    <AndroidResource Include="Resources\drawable\mira.png" />
+    <AndroidResource Include="Resources\drawable\omen.png" />
+    <AndroidResource Include="Resources\drawable\orchid.png" />
+    <AndroidResource Include="Resources\drawable\raam.png" />
+    <AndroidResource Include="Resources\drawable\rash.png" />
+    <AndroidResource Include="Resources\drawable\riptor.png" />
+    <AndroidResource Include="Resources\drawable\sabrewulf.png" />
+    <AndroidResource Include="Resources\drawable\sadira.png" />
+    <AndroidResource Include="Resources\drawable\shadowjago.png" />
+    <AndroidResource Include="Resources\drawable\spinal.png" />
+    <AndroidResource Include="Resources\drawable\thunder.png" />
+    <AndroidResource Include="Resources\drawable\tjcombo.png" />
+    <AndroidResource Include="Resources\drawable\tusk.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\raw\small.3gp" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
+</Project>
