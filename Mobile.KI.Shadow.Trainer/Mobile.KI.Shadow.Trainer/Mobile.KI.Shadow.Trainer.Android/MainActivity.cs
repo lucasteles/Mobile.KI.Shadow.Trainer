@@ -17,6 +17,10 @@ namespace Mobile.KI.Shadow.Trainer.Droid
     public class MainActivity : Activity
     {
 
+        EditText txtSeach;
+        GridView grid;
+        ImageTextAdapter adapter;
+
         protected override void OnCreate (Bundle bundle)
         {
             base.OnCreate (bundle);
@@ -27,19 +31,18 @@ namespace Mobile.KI.Shadow.Trainer.Droid
             var stream = Assets.Open("data.json");
             DataLoader.LoadCharactersAsync(stream).Wait();
 
-            var grid = FindViewById<GridView>(Resource.Id.GridChars);
+            grid = FindViewById<GridView>(Resource.Id.GridChars);
+            txtSeach = FindViewById<EditText>(Resource.Id.txtSearch);
 
-
-            var list = new JavaList<Character>(
-                    DataLoader.Characters
-                 );
-
-
-            var adapter = new ImageTextAdapter(list, this);
-
-            grid.Adapter = adapter;
             grid.ItemClick += grid_ItemClick;
+            txtSeach.TextChanged += TxtSeach_TextChanged;
+            LoadGrid();
 
+        }
+
+        private void TxtSeach_TextChanged(object sender, Android.Text.TextChangedEventArgs e)
+        {
+            adapter.Filter.InvokeFilter(txtSeach.Text);
         }
 
         void grid_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
@@ -50,7 +53,18 @@ namespace Mobile.KI.Shadow.Trainer.Droid
             StartActivity(intent);
         }
 
+        void LoadGrid()
+        {
 
+            var list = new JavaList<Character>(
+                    DataLoader.Characters
+                 );
+
+
+            adapter = new ImageTextAdapter(list, this);
+
+            grid.Adapter = adapter;
+        }
     }
 }
 

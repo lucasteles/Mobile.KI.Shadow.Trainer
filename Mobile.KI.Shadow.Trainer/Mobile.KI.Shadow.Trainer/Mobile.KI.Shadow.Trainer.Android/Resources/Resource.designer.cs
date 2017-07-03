@@ -138,35 +138,38 @@ namespace Mobile.KI.Shadow.Trainer.Droid
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f050002
-			public const int GridChars = 2131034114;
+			// aapt resource value: 0x7f050003
+			public const int GridChars = 2131034115;
 			
 			// aapt resource value: 0x7f050000
 			public const int GridImage = 2131034112;
 			
-			// aapt resource value: 0x7f050003
-			public const int GridMoves = 2131034115;
+			// aapt resource value: 0x7f050004
+			public const int GridMoves = 2131034116;
 			
 			// aapt resource value: 0x7f050001
 			public const int GridText = 2131034113;
 			
-			// aapt resource value: 0x7f050005
-			public const int VideoPlayer = 2131034117;
-			
-			// aapt resource value: 0x7f050008
-			public const int cmdPlay = 2131034120;
-			
 			// aapt resource value: 0x7f050006
-			public const int lblFrames = 2131034118;
+			public const int VideoPlayer = 2131034118;
 			
 			// aapt resource value: 0x7f050009
-			public const int lblScore = 2131034121;
+			public const int cmdPlay = 2131034121;
 			
 			// aapt resource value: 0x7f050007
-			public const int seekVideo = 2131034119;
+			public const int lblFrames = 2131034119;
 			
-			// aapt resource value: 0x7f050004
-			public const int textItem = 2131034116;
+			// aapt resource value: 0x7f05000a
+			public const int lblScore = 2131034122;
+			
+			// aapt resource value: 0x7f050008
+			public const int seekVideo = 2131034120;
+			
+			// aapt resource value: 0x7f050005
+			public const int textItem = 2131034117;
+			
+			// aapt resource value: 0x7f050002
+			public const int txtSearch = 2131034114;
 			
 			static Id()
 			{

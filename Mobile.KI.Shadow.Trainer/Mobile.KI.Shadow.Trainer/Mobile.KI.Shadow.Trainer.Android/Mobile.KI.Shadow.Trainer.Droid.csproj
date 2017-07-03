@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="Adapters\ImageTextAdapter.cs" />
     <Compile Include="Constants\Enumerables.cs" />
+    <Compile Include="Extensions\JavaHolder.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="MovesActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
