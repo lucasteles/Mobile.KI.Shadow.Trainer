@@ -18,10 +18,20 @@ namespace Mobile.KI.Shadow.Trainer
         {
             using (var sr = new StreamReader(fileStream))
             {
-                var textJson = sr.ReadToEnd();
+                try
+                {
 
-                var result = JsonConvert.DeserializeObject<IEnumerable<Character>>(textJson);
-                Characters = result.OrderBy(e=>e.Name).ToList();
+                    var textJson = await sr.ReadToEndAsync().ConfigureAwait(false);
+                    var result = JsonConvert.DeserializeObject<IEnumerable<Character>>(textJson);
+                    Characters = result.OrderBy(e => e.Name).ToList();
+
+                }
+                catch (Exception ex)
+                {
+
+                    throw;
+                }
+              
             }
 
         }

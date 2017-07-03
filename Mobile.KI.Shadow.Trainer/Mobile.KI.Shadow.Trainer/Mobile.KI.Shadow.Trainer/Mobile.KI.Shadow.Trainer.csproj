@@ -36,6 +36,7 @@
     <Compile Include="Models\Enumerators.cs" />
     <Compile Include="Models\Move.cs" />
     <Compile Include="Models\Range.cs" />
+    <Compile Include="Models\RangeData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
