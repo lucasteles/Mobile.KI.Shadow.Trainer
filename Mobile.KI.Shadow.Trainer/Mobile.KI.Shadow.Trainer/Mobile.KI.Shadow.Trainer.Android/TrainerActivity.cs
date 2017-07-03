@@ -177,9 +177,10 @@ namespace Mobile.KI.Shadow.Trainer.Droid
 
             videoView.Prepared += (sender, args) =>
             {
+               
                 prepared = true;
+                videoView.SetZOrderOnTop(true);
             };
-
 
 
         }
@@ -205,14 +206,14 @@ namespace Mobile.KI.Shadow.Trainer.Droid
             seekVideo.Progress = 0;
             seekVideo.Max = videoView.Duration;
 
-            if (videoView.IsPlaying)
-                videoView.Resume();
-            else
-                videoView.Start();
-            UpdateBar();
 
-
+            //if (videoView.IsPlaying)
+            //    videoView.Resume();
+            //else
+            videoView.SetBackgroundColor(Color.Transparent);
+            videoView.Start();
             videoView.SetZOrderOnTop(true);
+            UpdateBar();
 
 
         }
@@ -282,6 +283,7 @@ namespace Mobile.KI.Shadow.Trainer.Droid
 
                     }
                 }
+                seekVideo.Progress = videoView.CurrentPosition;
                 //Stop();
             }));
 
