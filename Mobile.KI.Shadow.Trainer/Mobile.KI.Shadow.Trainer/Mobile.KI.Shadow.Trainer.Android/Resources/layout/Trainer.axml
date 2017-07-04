@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:screenOrientation="landscape"
-
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <VideoView
@@ -10,17 +8,18 @@
         android:layout_height="229.5dp"
         android:id="@+id/VideoPlayer"
         android:layout_marginBottom="0.0dp" />
-      <TextView
+    <ProgressBar
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/seekBar" />
+    <TextView
         android:text="frames"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="4dp"
         android:id="@+id/lblFrames" />
-    <SeekBar
-        android:layout_width="match_parent"
-        android:layout_height="31.5dp"
-        android:id="@+id/seekVideo" />
     <Button
         android:text="Play"
         android:layout_width="match_parent"
@@ -28,8 +27,6 @@
         android:id="@+id/cmdPlay"
         android:layout_marginBottom="0.0dp"
         android:layout_marginTop="12.0dp" />
-
-
     <TextView
         android:text=""
         android:textAppearance="?android:attr/textAppearanceSmall"
@@ -37,4 +34,9 @@
         android:layout_height="wrap_content"
         android:padding="4dp"
         android:id="@+id/lblScore" />
+    <CheckBox
+        android:text="Disable Beep"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/chkBeep" />
 </LinearLayout>

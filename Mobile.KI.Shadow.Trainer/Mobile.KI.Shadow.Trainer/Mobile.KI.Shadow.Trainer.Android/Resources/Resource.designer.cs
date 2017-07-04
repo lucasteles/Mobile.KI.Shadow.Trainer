@@ -153,17 +153,20 @@ namespace Mobile.KI.Shadow.Trainer.Droid
 			// aapt resource value: 0x7f050006
 			public const int VideoPlayer = 2131034118;
 			
+			// aapt resource value: 0x7f05000b
+			public const int chkBeep = 2131034123;
+			
 			// aapt resource value: 0x7f050009
 			public const int cmdPlay = 2131034121;
 			
-			// aapt resource value: 0x7f050007
-			public const int lblFrames = 2131034119;
+			// aapt resource value: 0x7f050008
+			public const int lblFrames = 2131034120;
 			
 			// aapt resource value: 0x7f05000a
 			public const int lblScore = 2131034122;
 			
-			// aapt resource value: 0x7f050008
-			public const int seekVideo = 2131034120;
+			// aapt resource value: 0x7f050007
+			public const int seekBar = 2131034119;
 			
 			// aapt resource value: 0x7f050005
 			public const int textItem = 2131034117;

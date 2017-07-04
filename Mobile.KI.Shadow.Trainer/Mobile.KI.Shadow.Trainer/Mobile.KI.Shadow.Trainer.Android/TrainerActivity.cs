@@ -16,11 +16,12 @@ using System.Threading;
 using Mobile.KI.Shadow.Trainer.Models;
 using Mobile.KI.Shadow.Models;
 using Mobile.KI.Shadow.Trainer.Droid.Constants;
+using Android.Content.PM;
 
 namespace Mobile.KI.Shadow.Trainer.Droid
 {
 
-    [Activity()]
+    [Activity(ScreenOrientation = ScreenOrientation.Portrait)]
     public class TrainerActivity : Activity
     {
         string character;
@@ -33,14 +34,14 @@ namespace Mobile.KI.Shadow.Trainer.Droid
         int lastHit = -1;
         Move thisMove;
         const int oneFrame = 1000 / 60;
-        bool prepared;
 
-        bool cancelationToken = false;
+        bool cancelationToken;
         Button btnPlay;
         VideoView videoView;
+        CheckBox chkDisableBeep;
         TextView lblFrames;
         TextView lblScore;
-        SeekBar seekVideo;
+        ProgressBar seekVideo;
         Thread seekThread;
         IList<RangeData> ranges;
 
@@ -65,12 +66,16 @@ namespace Mobile.KI.Shadow.Trainer.Droid
                         .SingleOrDefault(e => e.Name == move);
 
 
+            videoView.Prepared += (sender, args) =>
+            {
+                OnVideoIsPrepared();
+            };
+
 
 
 
             BuildRange();
             BuildSounds();
-            SetVideo();
 
         }
 
@@ -136,6 +141,7 @@ namespace Mobile.KI.Shadow.Trainer.Droid
 
         private void StopBeep()
         {
+           
             sounds[SoundsEnum.BEEP].SeekTo(0);
             sounds[SoundsEnum.BEEP].Pause();
         }
@@ -144,9 +150,10 @@ namespace Mobile.KI.Shadow.Trainer.Droid
         {
             btnPlay = FindViewById<Button>(Resource.Id.cmdPlay);
             videoView = FindViewById<VideoView>(Resource.Id.VideoPlayer);
-            seekVideo = FindViewById<SeekBar>(Resource.Id.seekVideo);
+            seekVideo = FindViewById<ProgressBar>(Resource.Id.seekBar);
             lblFrames = FindViewById<TextView>(Resource.Id.lblFrames);
             lblScore = FindViewById<TextView>(Resource.Id.lblScore);
+            chkDisableBeep = FindViewById<CheckBox>(Resource.Id.chkBeep);
         }
 
         void UpdateScore()
@@ -180,53 +187,47 @@ namespace Mobile.KI.Shadow.Trainer.Droid
             var uri = Android.Net.Uri.Parse("android.resource://" + Application.PackageName + "/" + resourceId.ToString());
             videoView.SetVideoURI(uri);
             seekVideo.Max = 0;
-            prepared = false;
 
 
-            videoView.Prepared += (sender, args) =>
-            {
-               
-                prepared = true;
-            };
-
-
+        
         }
 
 
 
         void Play()
         {
-
-            if (!prepared)
-                return;
-
+            videoView.StopPlayback();
+            
             var cbSound = sounds[SoundsEnum.COMBOBREAKER];
             if (cbSound.IsPlaying)
             {
-               
+
                 cbSound.SeekTo(0);
                 cbSound.Pause();
 
             }
 
-            
-            videoView.SeekTo(0);
+            SetVideo();
+
+
+        }
+
+        void OnVideoIsPrepared()
+        {
+        
+
             seekVideo.Progress = 0;
             seekVideo.Max = videoView.Duration;
-           
 
-            //if (videoView.IsPlaying)
-            //    videoView.Resume();
-            //else
+
             videoView.SetBackgroundColor(Color.Transparent);
             videoView.Start();
             videoView.SetZOrderOnTop(true);
             videoView.SetZOrderMediaOverlay(true);
-          
+
             StartThread();
-
-
         }
+
         void Stop()
         {
             frameError = atualFrame;
@@ -271,28 +272,30 @@ namespace Mobile.KI.Shadow.Trainer.Droid
                     {
                       
                         atualFrame = videoView.CurrentPosition / oneFrame;
-
+                      
                         RunOnUiThread(() =>
                         {
                             var isHit = GetHit();
-                            seekVideo.Progress = current;
+
                             if (seekThread == null || !seekThread.IsAlive)
                                 return;
+
+                            seekVideo.Progress = current;
 
                             lblFrames.Text = $"{atualFrame}f";
                             lblFrames.SetBackgroundColor(isHit ? Color.Red : Color.Black);
 
-                            if (isHit)
-                            {
-                                if (!sounds[SoundsEnum.BEEP].IsPlaying)
-                                  sounds[SoundsEnum.BEEP].Start();
+                            if (!chkDisableBeep.Checked) { 
+                                if (isHit)
+                                {
+                                    if (!sounds[SoundsEnum.BEEP].IsPlaying)
+                                        sounds[SoundsEnum.BEEP].Start();
+                                }
+                                else if (sounds[SoundsEnum.BEEP].IsPlaying)
+                                {
+                                    StopBeep();
+                                }
                             }
-                            else if (sounds[SoundsEnum.BEEP].IsPlaying)
-                            {
-                                StopBeep();
-
-                            }
-
                         });
 
 
