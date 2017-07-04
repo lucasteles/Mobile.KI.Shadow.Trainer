@@ -35,6 +35,7 @@ namespace Mobile.KI.Shadow.Trainer.Droid
         const int oneFrame = 1000 / 60;
         bool prepared;
 
+        bool cancelationToken = false;
         Button btnPlay;
         VideoView videoView;
         TextView lblFrames;
@@ -110,15 +111,17 @@ namespace Mobile.KI.Shadow.Trainer.Droid
 
                 if (hits >= 3)
                 {
+                    StopThread();
                     Stop();
                     Successes++;
-                    sounds[SoundsEnum.BEEP].SeekTo(0);
-                    sounds[SoundsEnum.BEEP].Pause();
+                  
+                   
                     sounds[SoundsEnum.COMBOBREAKER].Start();
                 }
             }
             else
             {
+                StopThread();
                 hits = 0;
                 Misses++;
                 sounds[SoundsEnum.LOCKOUT].Start();
@@ -129,6 +132,12 @@ namespace Mobile.KI.Shadow.Trainer.Droid
 
             UpdateScore();
 
+        }
+
+        private void StopBeep()
+        {
+            sounds[SoundsEnum.BEEP].SeekTo(0);
+            sounds[SoundsEnum.BEEP].Pause();
         }
 
         void FindControls()
@@ -170,7 +179,6 @@ namespace Mobile.KI.Shadow.Trainer.Droid
             var resourceId = (int)typeof(Resource.Raw).GetField(move_file).GetValue(null);
             var uri = Android.Net.Uri.Parse("android.resource://" + Application.PackageName + "/" + resourceId.ToString());
             videoView.SetVideoURI(uri);
-            videoView.SetBackgroundColor(Color.Transparent);
             seekVideo.Max = 0;
             prepared = false;
 
@@ -179,7 +187,6 @@ namespace Mobile.KI.Shadow.Trainer.Droid
             {
                
                 prepared = true;
-                videoView.SetZOrderOnTop(true);
             };
 
 
@@ -189,7 +196,6 @@ namespace Mobile.KI.Shadow.Trainer.Droid
 
         void Play()
         {
-
 
             if (!prepared)
                 return;
@@ -203,9 +209,11 @@ namespace Mobile.KI.Shadow.Trainer.Droid
 
             }
 
+            
+            videoView.SeekTo(0);
             seekVideo.Progress = 0;
             seekVideo.Max = videoView.Duration;
-
+           
 
             //if (videoView.IsPlaying)
             //    videoView.Resume();
@@ -213,66 +221,75 @@ namespace Mobile.KI.Shadow.Trainer.Droid
             videoView.SetBackgroundColor(Color.Transparent);
             videoView.Start();
             videoView.SetZOrderOnTop(true);
-            UpdateBar();
+            videoView.SetZOrderMediaOverlay(true);
+          
+            StartThread();
 
 
         }
         void Stop()
         {
             frameError = atualFrame;
-            atualFrame = 0;
             hits = 0;
             lastHit = -1;
-            seekVideo.Progress = 0;
+            StopBeep();
             btnPlay.Text = "Play";
-            videoView.SeekTo(0);
+           
+            atualFrame = 0;
             videoView.Pause();
             lblFrames.SetBackgroundColor(Color.Black);
-           
 
-
+            lblFrames.Text = $"{frameError}f";
         }
 
 
-        void UpdateBar()
+        void StartThread()
         {
             if (seekThread != null)
             {
-                seekThread.Abort();
-                
+                StopThread();
+
             }
             var move = DataLoader.Characters.Where(e => e.Name == character)
                       .SelectMany(e => e.Moves)
                       .Where(e => e.Name == this.move);
 
+            
             seekThread = new Thread(new ThreadStart(() =>
             {
-
-
-                while (videoView.IsPlaying)
+              
+                var current =0;
+                while (videoView.IsPlaying && !cancelationToken)
                 {
                     Thread.Sleep(1000 / 120);
 
-                    seekVideo.Max = videoView.Duration;
-                    if (videoView.Duration > 0 && videoView.CurrentPosition > 0 && videoView.IsPlaying)
+                    if (current < videoView.CurrentPosition)
+                        current = videoView.CurrentPosition;
+
+
+                    if (videoView.Duration > 0 && current > 0 && videoView.IsPlaying)
                     {
-                        seekVideo.Progress = videoView.CurrentPosition;
+                      
                         atualFrame = videoView.CurrentPosition / oneFrame;
-                        var isHit = GetHit();
+
                         RunOnUiThread(() =>
                         {
+                            var isHit = GetHit();
+                            seekVideo.Progress = current;
+                            if (seekThread == null || !seekThread.IsAlive)
+                                return;
+
                             lblFrames.Text = $"{atualFrame}f";
                             lblFrames.SetBackgroundColor(isHit ? Color.Red : Color.Black);
 
                             if (isHit)
                             {
-
-                                sounds[SoundsEnum.BEEP].Start();
+                                if (!sounds[SoundsEnum.BEEP].IsPlaying)
+                                  sounds[SoundsEnum.BEEP].Start();
                             }
                             else if (sounds[SoundsEnum.BEEP].IsPlaying)
                             {
-                                sounds[SoundsEnum.BEEP].SeekTo(0);
-                                sounds[SoundsEnum.BEEP].Pause();
+                                StopBeep();
 
                             }
 
@@ -283,13 +300,28 @@ namespace Mobile.KI.Shadow.Trainer.Droid
 
                     }
                 }
-                seekVideo.Progress = videoView.CurrentPosition;
-                //Stop();
+                if (!cancelationToken)
+                {
+                    StopBeep();
+                    seekVideo.Progress = videoView.Duration;
+                    RunOnUiThread(() =>
+                    {
+                        btnPlay.Text = "Play Again";
+                        lblFrames.SetBackgroundColor(Color.Black);
+                    });
+                }
             }));
 
             seekThread.Start();
         }
 
-
+        private void StopThread()
+        {
+            cancelationToken = true;
+           // seekThread.Abort();
+            while (seekThread.IsAlive)
+                Thread.Sleep(100);
+            cancelationToken = false;
+        }
     }
 }

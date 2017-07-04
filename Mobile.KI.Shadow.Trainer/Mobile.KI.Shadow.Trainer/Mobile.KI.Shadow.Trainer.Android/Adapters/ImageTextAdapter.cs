@@ -15,7 +15,7 @@ namespace Mobile.KI.Shadow.Trainer.Droid
     public class ImageTextAdapter : BaseAdapter, IFilterable
     {
         private Context c;
-        private JavaList<Character> CharsList;
+        public JavaList<Character> CharsList;
         private JavaList<Character> OriginalCharsList;
         private LayoutInflater inflater;
         Filter titleFilter;
@@ -90,7 +90,8 @@ namespace Mobile.KI.Shadow.Trainer.Droid
                                 .Where(contact => contact.Name.ToLower()
                                           .Contains(search)
                                       )
-                                 .OrderByDescending(e=>e.Name.ToLower().StartsWith(search))
+                                 .OrderByDescending(e => e.Name.ToLower().StartsWith(search))
+                                 .ThenBy(e => e.Name)
                                 );
                 }
              

@@ -49,7 +49,8 @@ namespace Mobile.KI.Shadow.Trainer.Droid
         {
             //  Toast.MakeText(this, DataLoader.Characters[e.Position].Name, ToastLength.Short).Show();
             var intent = new Intent(this, typeof(MovesActivity));
-            intent.PutExtra("char_name", DataLoader.Characters[e.Position].Name);
+           
+            intent.PutExtra("char_name", adapter.CharsList[e.Position].Name);
             StartActivity(intent);
         }
 
