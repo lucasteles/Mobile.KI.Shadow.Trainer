@@ -158,7 +158,7 @@ namespace Mobile.KI.Shadow.Trainer.Droid
 
         void UpdateScore()
         {
-            lblScore.Text = $"Breaks={Successes} / Misses={Misses}";
+            lblScore.Text = $"Breaks={Successes} / Miss={Misses}";
         }
 
         bool GetHit() => ranges.Any(x => x.InRange(atualFrame));

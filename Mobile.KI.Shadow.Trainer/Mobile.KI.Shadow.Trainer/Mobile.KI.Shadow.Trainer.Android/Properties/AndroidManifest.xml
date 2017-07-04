@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:installLocation="auto" android:versionName="1.0.0">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:installLocation="internalOnly" android:versionName="1.0.0" package="lucasteles.kibreaktrainer" android:versionCode="1">
 	<uses-sdk android:minSdkVersion="15" />
-	<application android:label="KI Shadow Breaker Trainer" android:icon="@drawable/Icon"></application>
+	<application android:label="KI Break Trainer" android:icon="@drawable/Icon"></application>
 </manifest>
