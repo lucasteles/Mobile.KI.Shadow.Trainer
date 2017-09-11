@@ -142,14 +142,14 @@ namespace Mobile.KI.Shadow.Loader
                 Directory.CreateDirectory(VIDEOS_FOLDER);
 
 
-            var characterDownloadList = new List<Task>();
+            var characterDownloadList = new List<Func<Task>>();
             foreach (var chara in characters)
             {
                 var thumb_url = string.Format(THUMB_URL, chara.Thumb);
                 var thumb_filename = Path.Combine(THUMBS_FOLDER, Path.GetFileName(thumb_url));
 
                 characterDownloadList.Add(
-                    SingleDownloadAsync(thumb_url, thumb_filename, $"{chara.Name} thumb")
+                  () => SingleDownloadAsync(thumb_url, thumb_filename, $"{chara.Name} thumb")
                 );
 
                                
@@ -160,7 +160,7 @@ namespace Mobile.KI.Shadow.Loader
                     var move_filename = Path.Combine(VIDEOS_FOLDER, Path.GetFileName(move_url));
 
                     characterDownloadList.Add(
-                        SingleDownloadAsync(move_url, move_filename, $"{chara.Name} - {move.Name} move")                   
+                        () => SingleDownloadAsync(move_url, move_filename, $"{chara.Name} - {move.Name} move")                   
                    );
 
 
@@ -171,14 +171,17 @@ namespace Mobile.KI.Shadow.Loader
             //await Task.WhenAll(characterDownloadList);
             await Observable
                      .Range(0, characterDownloadList.Count()-1)
-                     .Select(n => Observable.FromAsync(()=>characterDownloadList[n]) )
+                     .Select(n => Observable.FromAsync(()=>characterDownloadList[n]() ))
                      .Merge(THROTTLE);
+
+            
 
         }
 
         static async Task SingleDownloadAsync(string url, string path, string message = "")
         {
             Console.WriteLine($"Downloading {message}");
+
             using (var wb = new WebClient())
             {
                 wb.Headers.Add("User-Agent", "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.33 Safari/537.36");
